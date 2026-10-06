@@ -26,8 +26,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6119,
-      "sha256": "06aa7e5819e5e4bc674ebb1db434184675f9aa83c7bb846d0e7f8c9a7849e436"
+      "bytes": 5227,
+      "sha256": "2d0402819d1352020ff213d616a521b956e474431a735383f9cdcc653f190ba8"
     },
     {
       "path": "app/.dockerignore",

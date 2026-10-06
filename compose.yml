@@ -1,0 +1,28 @@
+services:
+  redis:
+    image: redis:7.2-alpine
+    command: [redis-server, --appendonly, 'yes']
+    volumes:
+      - ./state/redis:/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+  app:
+    build:
+      context: ./app
+      args:
+        APP_VERSION: v1.4.8-evan.20261005
+    ports:
+      - 127.0.0.1:8080:8080
+    volumes:
+      - ./app/config.yml:/app/config.yml:ro
+      - ./state/db:/app/db
+      - ./state/uploads:/app/uploads
+      - ./state/logs:/app/logs
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped

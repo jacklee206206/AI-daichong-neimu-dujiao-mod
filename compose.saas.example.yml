@@ -1,0 +1,5 @@
+# 自行创建 secrets/cloudflare-saas-token 后再用此追加配置。
+services:
+  app:
+    volumes:
+      - ./secrets/cloudflare-saas-token:/run/secrets/cloudflare-saas-token:ro

@@ -1,0 +1,22 @@
+# 将 shop.example.com 替换为自己的主站域名。
+# 放进 Nginx http 上下文；不记录查询字符串，避免订单令牌进入 access_log。
+log_format dujiao_safe '$remote_addr [$time_local] $request_method $uri $status $body_bytes_sent';
+
+server {
+    listen 80;
+    server_name shop.example.com www.shop.example.com;
+    access_log /var/log/nginx/dujiao-main-access.log dujiao_safe;
+    client_max_body_size 50m;
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt;
+    }
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+}

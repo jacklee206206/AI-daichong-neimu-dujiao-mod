@@ -1,0 +1,37 @@
+# 运行数据与凭据
+config.yml
+**/config.yml
+*.env
+.env
+.env.*
+!.env.example
+!*.env.example
+**/db/
+**/logs/
+**/uploads/
+state/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+# 依赖、编译产物与本机文件
+**/node_modules/
+**/dist/
+**/__pycache__/
+**/.codex-test-output/
+*.pyc
+bin/
+.DS_Store
+.idea/
+.vscode/
+*.zip
+*.tar.gz
+# 初始化 Git 后的本机运行信息
+.runtime/
+secrets/

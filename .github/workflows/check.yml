@@ -1,0 +1,25 @@
+name: Public package checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package-and-domain-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python scripts/check_public_package.py
+      - run: python -B ops/test-provision-reseller-domain.py
+      - run: python -B ops/test-auto-provision-reseller-domains.py
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build this fork from source without pushing an image
+        run: docker build --build-arg APP_VERSION=v1.4.8-evan.20261005 -t evan-ai-shop:test app

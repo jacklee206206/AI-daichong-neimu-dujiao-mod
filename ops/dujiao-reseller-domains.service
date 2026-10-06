@@ -1,0 +1,26 @@
+[Unit]
+Description=Issue certificates for explicitly requested reseller domains
+After=network-online.target dujiao-next.service nginx.service
+Wants=network-online.target
+ConditionPathExists=/usr/local/lib/dujiao-next/provision-reseller-domain.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+EnvironmentFile=/etc/dujiao-reseller-domains.env
+ExecStart=/usr/bin/python3 /usr/local/lib/dujiao-next/auto-provision-reseller-domains.py --db ${DUJIAO_DB} --entry-ip ${DUJIAO_ENTRY_IP} --email ${DUJIAO_CERT_EMAIL} --apply
+TimeoutStartSec=25min
+TimeoutStopSec=15s
+KillMode=control-group
+SendSIGKILL=yes
+# Required for temporary effective UID/GID switching during SQLite I/O.
+# Keep these in the permitted set when NoNewPrivileges is enabled.
+AmbientCapabilities=CAP_SETUID CAP_SETGID
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+StandardOutput=journal
+StandardError=journal

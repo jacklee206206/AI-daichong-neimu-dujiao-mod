@@ -26,8 +26,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6170,
-      "sha256": "0b4213083f7d883c13ff9a3f430eda1d003659b3483d69085ed8c0fbd6b8e22a"
+      "bytes": 6119,
+      "sha256": "06aa7e5819e5e4bc674ebb1db434184675f9aa83c7bb846d0e7f8c9a7849e436"
     },
     {
       "path": "app/.dockerignore",
@@ -9291,8 +9291,8 @@
     },
     {
       "path": "docs/发布到GitHub.md",
-      "bytes": 2413,
-      "sha256": "70b2093800b934e6973c08d2d5580e4f4e2f27fd2a171f3c759bb0f0908590f6"
+      "bytes": 2437,
+      "sha256": "9e1fea7cc4d8ba3373eb2a72a6ad2349f2cdd9289d502abca3517c275af10392"
     },
     {
       "path": "docs/发布包检查记录.md",

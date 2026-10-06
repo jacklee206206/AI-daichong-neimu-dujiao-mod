@@ -1,6 +1,6 @@
 # 发布到 GitHub
 
-建议仓库名：`evan-ai-shop-journey`。
+建议仓库名：`AI-daichong-neimu-dujiao-mod`。
 
 建议描述：**一个零编程基础大一学生借助 Codex 改造 Dujiao-Next 的实践记录，包含文章、源码、托管分销、商品 API 和部署流程。**
 
@@ -31,7 +31,7 @@ git commit -m "Publish Evan AI shop journey and customized source"
 以下命令仅适用于尚无提交的空仓库：
 
 ```sh
-git remote add origin https://github.com/YOUR_USERNAME/evan-ai-shop-journey.git
+git remote add origin https://github.com/YOUR_USERNAME/AI-daichong-neimu-dujiao-mod.git
 git push -u origin main
 ```
 
@@ -42,7 +42,7 @@ git push -u origin main
 GitHub 自动显示根目录 README。读者可从首页打开经历、流程、代码导读和两份 Word 接入手册。公开后，文章入口为：
 
 ```text
-https://github.com/YOUR_USERNAME/evan-ai-shop-journey/blob/main/docs/我的三天三夜.md
+https://github.com/YOUR_USERNAME/AI-daichong-neimu-dujiao-mod/blob/main/docs/我的三天三夜.md
 ```
 
 ## 继续维护

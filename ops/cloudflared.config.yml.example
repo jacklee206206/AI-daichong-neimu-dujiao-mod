@@ -1,0 +1,10 @@
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: /etc/cloudflared/REPLACE_WITH_TUNNEL_UUID.json
+protocol: quic
+
+ingress:
+  - hostname: jackleeshop.com
+    service: http://gateway:8081
+  - hostname: www.jackleeshop.com
+    service: http://gateway:8081
+  - service: http_status:404

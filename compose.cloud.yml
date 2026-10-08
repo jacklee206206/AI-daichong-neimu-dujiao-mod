@@ -1,0 +1,55 @@
+name: jacklee-shop
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    command: [redis-server, --appendonly, 'yes']
+    volumes:
+      - ./state/redis:/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  app:
+    image: ghcr.io/yelinyuan798-commits/ai-daichong-neimu-dujiao-mod:${SHOP_IMAGE_TAG:-latest}
+    pull_policy: always
+    init: true
+    ports:
+      - 127.0.0.1:8080:8080
+    volumes:
+      - ./app/config.yml:/app/config.yml:ro
+      - ./state/db:/app/db
+      - ./state/uploads:/app/uploads
+      - ./state/logs:/app/logs
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD-SHELL, wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1]
+      interval: 15s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  gateway:
+    image: nginx:alpine
+    volumes:
+      - ./ops/cloud-gateway.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    pull_policy: always
+    command: tunnel --config /etc/cloudflared/config.yml --no-autoupdate run
+    volumes:
+      - ./secrets/cloudflared:/etc/cloudflared:ro
+    depends_on:
+      - gateway
+    restart: unless-stopped
